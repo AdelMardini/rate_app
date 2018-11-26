@@ -1,0 +1,99 @@
+CREATE TABLE cra_login(
+user_id NUMBER PRIMARY KEY ,
+name varchar2(100) NOT NULL ,
+user_name varchar2(100) NOT NULL ,
+password varchar2(100) NOT NULL ,
+department varchar2(100) NOT null,
+date_of_register DATE DEFAULT(sysdate) NOT null,
+priv_name varchar2(100) NOT null, 
+status varchar2(100) NOT null
+--FOREIGN KEY (priv_name) REFERENCES cra_login_privilege(priv_name)
+);
+
+/*
+CREATE OR REPLACE TRIGGER seq_trig --to insert sequence.nextval into user_id // because cant be inserted from java form 
+BEFORE INSERT ON cra_login
+FOR EACH ROW
+ WHEN (new.user_id IS NULL) 
+BEGIN
+  SELECT seq2.NEXTVAL 
+  INTO :new.user_id
+  FROM dual;
+END;
+
+
+
+CREATE SEQUENCE seq2
+MAXVALUE 1000
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+NOcycle
+nocache
+
+*/
+
+
+
+
+/*
+CREATE TABLE cra_login_privilege(
+priv_name varchar2(100) PRIMARY KEY,
+priv_id NUMBER
+);
+
+
+*/
+
+
+CREATE TABLE cra_fin_inst_def(
+bank_id NUMBER PRIMARY KEY,
+bank_name varchar2(100) NOT null,
+country varchar2(100) NOT null,
+date_of_register DATE default(sysdate)
+);
+
+
+
+
+CREATE TABLE cra_fin_inst_curr(
+bank_id NUMBER,
+source_curr_code varchar2(100) NOT null,
+source_curr_name varchar2(100) NOT null,
+dest_curr_code varchar2(100) NOT null,
+dest_curr_name varchar2(100) NOT null
+--FOREIGN KEY (bank_id) REFERENCES cra_fin_inst_def(bank_id)
+);
+
+
+
+
+CREATE TABLE cra_fin_inst_rates(
+--bank_status varchar2(100),
+insertion_date DATE default(sysdate),
+source_curr_code varchar2(100),
+dest_curr_code varchar2(100),
+buy_rate NUMBER,
+middle_rate NUMBER,
+sell_rate NUMBER,
+file_name varchar2(100),
+bank_id NUMBER
+);
+
+
+
+
+/*
+   SELECT * 
+FROM test_inst_def d FULL OUTER JOIN test_inst_curr c
+on(d.BANK_ID=c.BANK_ID)
+FULL OUTER JOIN TEST_RATES r
+ON (d.BANK_ID=r.BANK_ID AND c.SOURCE_CURR_CODE=r.SOURCE_CURR_CODE AND c.DEST_CURR_CODE=r.DEST_CURR_CODE)
+
+*/
+
+
+
+
+
+

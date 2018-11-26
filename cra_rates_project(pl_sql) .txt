@@ -1,0 +1,55 @@
+-- to create the tables in one click
+
+
+
+BEGIN 
+	
+EXECUTE IMMEDIATE'CREATE TABLE cra_login(
+user_id NUMBER PRIMARY KEY ,
+name varchar2(100) NOT NULL ,
+user_name varchar2(100) NOT NULL ,
+password varchar2(100) NOT NULL ,
+department varchar2(100) NOT null,
+date_of_register DATE DEFAULT(sysdate) NOT null,
+priv_name varchar2(100) NOT null, 
+status varchar2(100) NOT null
+--FOREIGN KEY (priv_name) REFERENCES cra_login_privilege(priv_name)
+)';
+
+
+
+EXECUTE IMMEDIATE'CREATE TABLE cra_fin_inst_def(
+bank_id NUMBER PRIMARY KEY,
+bank_name varchar2(100) NOT null,
+country varchar2(100) NOT null,
+date_of_register DATE default(sysdate)
+)';
+
+
+
+
+EXECUTE IMMEDIATE 'CREATE TABLE cra_fin_inst_curr(
+bank_id NUMBER,
+source_curr_code varchar2(100) NOT null,
+source_curr_name varchar2(100) NOT null,
+dest_curr_code varchar2(100) NOT null,
+dest_curr_name varchar2(100) NOT null
+--FOREIGN KEY (bank_id) REFERENCES cra_fin_inst_def(bank_id)
+)';
+
+
+
+
+EXECUTE IMMEDIATE 'CREATE TABLE cra_fin_inst_rates(
+--bank_status varchar2(100),
+insertion_date DATE default(sysdate),
+source_curr_code varchar2(100),
+dest_curr_code varchar2(100),
+buy_rate NUMBER,
+middle_rate NUMBER,
+sell_rate NUMBER,
+file_name varchar2(100),
+bank_id NUMBER
+)';
+
+END;
